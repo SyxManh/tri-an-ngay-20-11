@@ -7,6 +7,7 @@
     
     <style>
         /* CSS Styling */
+        /* ... (Giữ nguyên toàn bộ CSS của bạn) ... */
         body {
             display: flex;
             flex-direction: column;
@@ -14,14 +15,13 @@
             align-items: center;
             min-height: 100vh;
             margin: 0;
-            background-color: #f0f8ff; /* Nền xanh nhạt, thân thiện */
+            background-color: #f0f8ff;
             font-family: 'Arial', sans-serif;
             color: #333;
             text-align: center;
             overflow: hidden;
         }
 
-        /* Phần Khởi Đầu (Hiển thị trước khi chạm) */
         #initial-screen {
             display: flex;
             flex-direction: column;
@@ -33,13 +33,13 @@
 
         .flower-icon {
             font-size: 100px;
-            animation: pulse 1.5s infinite; /* Hiệu ứng nhịp đập */
+            animation: pulse 1.5s infinite;
         }
 
         .instruction-text {
             margin-top: 15px;
             font-size: 20px;
-            color: #a0522d; /* Màu nâu đất */
+            color: #a0522d;
         }
 
         @keyframes pulse {
@@ -48,9 +48,8 @@
             100% { transform: scale(1); }
         }
 
-        /* Phần Nội Dung Chính (Hiển thị sau khi chạm) */
         #main-content {
-            display: none; /* Ẩn ban đầu */
+            display: none;
             opacity: 0;
             transition: opacity 1s;
             width: 90%;
@@ -59,7 +58,7 @@
 
         .header-text {
             font-size: 36px;
-            color: #d82c2c; /* Màu đỏ nổi bật */
+            color: #d82c2c;
             font-weight: bold;
             margin-bottom: 20px;
             animation: fadeInDown 1s ease-out;
@@ -70,12 +69,11 @@
             100% { opacity: 1; transform: translateY(0); }
         }
 
-        /* Khung Ảnh */
         #photo-frame {
             width: 100%;
             height: 350px;
             background-color: #fff;
-            border: 10px solid #f9c24b; /* Khung ảnh màu vàng */
+            border: 10px solid #f9c24b;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
             margin-bottom: 30px;
             overflow: hidden;
@@ -85,26 +83,28 @@
         #photo-display {
             width: 100%;
             height: 100%;
-            object-fit: cover; /* Cắt ảnh để vừa khung */
+            object-fit: cover;
             opacity: 1;
-            transition: opacity 1s ease-in-out; /* Hiệu ứng chuyển ảnh */
+            transition: opacity 1s ease-in-out;
         }
         
-        /* Khung Gõ Chữ */
         #typing-box {
             min-height: 80px;
             padding: 15px;
-            border: 2px dashed #00b300; /* Khung gõ chữ màu xanh lá cây */
+            border: 2px dashed #00b300;
             background-color: #e6ffe6;
             font-size: 24px;
             color: #008000;
             text-align: left;
-            white-space: pre-wrap; /* Quan trọng để giữ định dạng xuống dòng */
+            white-space: pre-wrap;
         }
-        
     </style>
 </head>
 <body>
+
+    <audio id="background-music" loop>
+        <source src="NGƯỜI GIEO MẦM XANH - HỨA KIM TUYỀN x HOÀNG DŨNG (OFFICIAL MV) [sj_UDyfoo-A].mp3" type="audio/mpeg"> <----- CHÈN TÊN FILE NHẠC MP3 CỦA BẠN VÀO ĐÂY
+    </audio>
 
     <div id="initial-screen">
         <div class="flower-icon">💐</div>
@@ -128,24 +128,23 @@
         const contentData = [
             {
                 header: "💐 CHÚC MỪNG NGÀY 20/11! 💐",
-                image: "images (2).jpg", // Đổi tên file ảnh của bạn
+                image: "anh1.jpg", 
                 message: "Kính chúc thầy cô thật nhiều sức khỏe, hạnh phúc và luôn giữ vững niềm đam mê với sự nghiệp 'trồng người'."
             },
             {
                 header: "🌹 NGƯỜI LÁI ĐÒ TẬN TỤY 🌹",
-                image: "unnamed (1).jpg", // Đổi tên file ảnh tiếp theo
+                image: "anh2.jpg", 
                 message: "Xin cảm ơn những bài giảng sâu sắc, những lời khuyên chân thành và sự tận tâm không mệt mỏi của thầy/cô."
             },
             {
                 header: "💖 TRI ÂN SÂU SẮC 💖",
-                image: "loi-chuc-ngay-20-11.jpg", // Thêm ảnh và lời chúc thứ 3
+                image: "anh3.jpg", 
                 message: "Chúc thầy cô có một ngày 20/11 trọn vẹn và ý nghĩa bên gia đình, đồng nghiệp và học trò."
             }
-            // Thêm nhiều đối tượng khác nếu bạn muốn thêm ảnh và lời chúc
         ];
         
-        const typingSpeed = 50; // Tốc độ gõ chữ (milliseconds/ký tự)
-        const delayBetweenSlides = 5000; // Thời gian chờ giữa các ảnh (milliseconds)
+        const typingSpeed = 50; 
+        const delayBetweenSlides = 5000; 
 
         // --- Tham chiếu DOM ---
         const initialScreen = document.getElementById('initial-screen');
@@ -154,16 +153,19 @@
         const photoDisplay = document.getElementById('photo-display');
         const typingBox = document.getElementById('typing-box');
         
+        // Tham chiếu thẻ <audio>
+        const backgroundMusic = document.getElementById('background-music'); // <--- SỬA: Đã đổi tên biến
+        
         let currentSlideIndex = 0;
         let isTyping = false;
         let typingTimeout;
         let slideInterval;
 
-        // --- Hàm Gõ Chữ (Hiệu ứng từ từ) ---
+        // --- Hàm Gõ Chữ (Giữ nguyên) ---
         function typeMessage(element, message, callback) {
             if (isTyping) return;
             isTyping = true;
-            element.textContent = ''; // Xóa nội dung cũ
+            element.textContent = ''; 
             let charIndex = 0;
 
             function type() {
@@ -179,48 +181,47 @@
             type();
         }
 
-        // --- Hàm Hiển thị Slide ---
+        // --- Hàm Hiển thị Slide (Giữ nguyên) ---
         function showSlide(index) {
-            // Đảm bảo index nằm trong phạm vi mảng
             if (index >= contentData.length) {
-                // Tự động quay lại slide đầu tiên hoặc dừng lại
                 index = 0; 
             }
             currentSlideIndex = index;
             const slide = contentData[index];
 
-            // 1. Cập nhật Header
             headerTextElement.textContent = slide.header;
 
-            // 2. Hiệu ứng chuyển ảnh
-            photoDisplay.style.opacity = 0; // Làm mờ ảnh cũ
+            photoDisplay.style.opacity = 0; 
             
             setTimeout(() => {
-                photoDisplay.src = slide.image; // Thay đổi nguồn ảnh
+                photoDisplay.src = slide.image; 
                 photoDisplay.onload = () => {
-                    photoDisplay.style.opacity = 1; // Hiển thị ảnh mới
+                    photoDisplay.style.opacity = 1; 
                 };
-            }, 500); // Chờ 0.5s cho hiệu ứng mờ
+            }, 500); 
 
-            // 3. Hiệu ứng Gõ Chữ
             typeMessage(typingBox, slide.message, () => {
-                // Sau khi gõ xong, bắt đầu hẹn giờ chuyển slide tiếp theo
                 if (slideInterval) clearInterval(slideInterval);
                 slideInterval = setTimeout(nextSlide, delayBetweenSlides);
             });
         }
         
-        // --- Hàm Chuyển Slide Tiếp theo ---
+        // --- Hàm Chuyển Slide Tiếp theo (Giữ nguyên) ---
         function nextSlide() {
             showSlide(currentSlideIndex + 1);
         }
 
-        // --- Xử lý sự kiện Chạm ---
+        // --- Xử lý sự kiện Chạm (ĐÃ SỬA để dùng lệnh play() của audio) ---
         initialScreen.addEventListener('click', () => {
             // Ẩn màn hình khởi đầu
             initialScreen.style.opacity = 0;
             initialScreen.style.transform = 'translateY(-50px)';
             
+            // BẮT ĐẦU PHÁT NHẠC (Đơn giản và đáng tin cậy)
+            backgroundMusic.play().catch(error => {
+                console.log("Không thể phát nhạc:", error);
+            });
+
             setTimeout(() => {
                 initialScreen.style.display = 'none';
                 
@@ -230,11 +231,8 @@
                     mainContent.style.opacity = 1;
                     showSlide(0); // Bắt đầu slide đầu tiên
                 }, 100);
-            }, 1000); // Đợi 1s cho hiệu ứng chuyển tiếp
+            }, 1000); 
         });
-
-        // Bắt đầu hẹn giờ chuyển slide sau khi slide đầu tiên gõ chữ xong
-        // (Đã được tích hợp vào hàm showSlide)
         
     </script>
 </body>
